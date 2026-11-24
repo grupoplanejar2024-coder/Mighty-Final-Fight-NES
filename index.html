@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#0b2545" />
-  <title>Disney's DuckTales (NES) — Kubo Touch</title>
+  <meta name="theme-color" content="#1e1b4b" />
+  <title>Mighty Final Fight (NES) — Kubo Touch</title>
   <style>
     * {
       box-sizing: border-box;
@@ -15,19 +15,18 @@
 
     body {
       background:
-        radial-gradient(circle at 50% 12%, rgba(250, 204, 21, 0.24) 0%, rgba(250, 204, 21, 0) 42%),
-        radial-gradient(circle at 15% 85%, rgba(34, 197, 94, 0.16) 0%, rgba(34, 197, 94, 0) 45%),
-        radial-gradient(circle at 85% 80%, rgba(126, 34, 206, 0.22) 0%, rgba(126, 34, 206, 0) 45%),
-        linear-gradient(180deg, #0ea5e9 0%, #0b2545 48%, #071326 100%);
+        radial-gradient(circle at 50% 14%, rgba(250, 204, 21, 0.24) 0%, rgba(250, 204, 21, 0) 42%),
+        radial-gradient(circle at 20% 82%, rgba(239, 68, 68, 0.24) 0%, rgba(239, 68, 68, 0) 46%),
+        radial-gradient(circle at 82% 78%, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0) 45%),
+        linear-gradient(180deg, #4c1d95 0%, #1e1b4b 52%, #090b1a 100%);
       color: #f8fafc;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       padding: 12px;
-      gap: 12px;
     }
 
     .container {
@@ -50,31 +49,31 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #fde047;
-      background: rgba(11, 37, 69, 0.75);
+      background: rgba(15, 23, 42, 0.78);
       border: 1px solid rgba(250, 204, 21, 0.55);
       padding: 3px 11px;
       border-radius: 999px;
       margin-bottom: 4px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
     }
 
     h1 {
       font-size: 1.35rem;
       font-weight: 900;
-      color: #fef08a;
-      text-shadow: 0 3px 0 #7c2d12, 0 8px 20px rgba(0, 0, 0, 0.55);
+      color: #fde047;
+      text-shadow: 0 3px 0 #991b1b, 0 8px 20px rgba(0, 0, 0, 0.65);
     }
 
     .stage {
       position: relative;
       width: 100%;
       aspect-ratio: 4 / 3;
-      max-height: 56dvh;
-      background: #071326;
+      max-height: 68dvh;
+      background: #090b1a;
       border-radius: 14px;
       overflow: hidden;
-      border: 2px solid rgba(250, 204, 21, 0.35);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(14, 165, 233, 0.2);
+      border: 2px solid rgba(250, 204, 21, 0.38);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(239, 68, 68, 0.22);
     }
 
     #game {
@@ -82,21 +81,61 @@
       height: 100%;
     }
 
-    /* Ajustes para os controles virtuais do EmulatorJS no celular não invadirem o centro da tela */
+    /* Layout vertical no celular: tela do jogo em cima e controles na metade inferior */
     @media (max-width: 768px) {
+      body {
+        padding: 0;
+        background: #090b1a;
+      }
+
+      .container {
+        max-width: 100%;
+        height: 100dvh;
+        gap: 0;
+      }
+
+      .header,
+      .hint {
+        display: none;
+      }
+
       .stage {
+        width: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
         aspect-ratio: auto;
-        height: 54dvh;
-        max-height: 54dvh;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        background: #090b1a;
+      }
+
+      #game canvas {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 46dvh !important;
+        max-height: 46dvh !important;
+        object-fit: contain !important;
+        background: #000 !important;
+        z-index: 2;
       }
 
       .ejs_virtual_gamepad,
       .ejs--gamepad,
       [class*="virtual_gamepad"],
       [class*="gamepad"] {
-        transform: scale(0.78);
-        transform-origin: bottom center;
-        opacity: 0.78;
+        position: fixed !important;
+        top: 46dvh !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 54dvh !important;
+        transform: none !important;
+        opacity: 1 !important;
+        z-index: 10;
       }
     }
 
@@ -104,9 +143,9 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 50% 25%, rgba(250, 204, 21, 0.25) 0%, rgba(250, 204, 21, 0) 50%),
-        radial-gradient(circle at 50% 80%, rgba(14, 165, 233, 0.25) 0%, rgba(14, 165, 233, 0) 55%),
-        linear-gradient(180deg, rgba(12, 74, 110, 0.92) 0%, rgba(11, 37, 69, 0.95) 55%, rgba(7, 19, 38, 0.97) 100%);
+        radial-gradient(circle at 50% 22%, rgba(250, 204, 21, 0.24) 0%, rgba(250, 204, 21, 0) 50%),
+        radial-gradient(circle at 50% 82%, rgba(220, 38, 38, 0.25) 0%, rgba(220, 38, 38, 0) 55%),
+        linear-gradient(180deg, rgba(76, 29, 149, 0.92) 0%, rgba(30, 27, 75, 0.95) 55%, rgba(9, 11, 26, 0.98) 100%);
       backdrop-filter: blur(8px);
       display: flex;
       flex-direction: column;
@@ -124,7 +163,7 @@
     }
 
     .box-3d {
-      width: 135px;
+      width: 145px;
       aspect-ratio: 3 / 4;
       border-radius: 10px;
       overflow: hidden;
@@ -141,7 +180,7 @@
     }
 
     .start-btn {
-      background: linear-gradient(135deg, #facc15, #f97316);
+      background: linear-gradient(135deg, #facc15, #ef4444);
       color: #090d16;
       font-weight: 900;
       font-size: 0.98rem;
@@ -149,7 +188,7 @@
       padding: 11px 28px;
       border-radius: 999px;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(249, 115, 22, 0.45);
+      box-shadow: 0 8px 24px rgba(239, 68, 68, 0.45);
     }
 
     .start-btn:active {
@@ -158,9 +197,9 @@
 
     .hint {
       font-size: 0.8rem;
-      color: #e0f2fe;
+      color: #e0e7ff;
       text-align: center;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
     }
   </style>
 </head>
@@ -168,28 +207,28 @@
   <div class="container">
     <div class="header">
       <div class="badge">Kubo Touch • NES</div>
-      <h1>Disney's DuckTales</h1>
+      <h1>Mighty Final Fight</h1>
     </div>
 
     <div class="stage">
       <div class="cover-overlay" id="coverOverlay">
         <div class="box-3d">
-          <img src="./Duck%20Tales%20NES.jpeg" alt="Capa Disney's DuckTales NES" />
+          <img src="./Midhty%20Final%20Fight%20NES_2.jpeg" alt="Capa Mighty Final Fight NES" />
         </div>
         <button class="start-btn" id="startBtn" type="button">Iniciar Jogo</button>
       </div>
       <div id="game"></div>
     </div>
 
-    <p class="hint">Dica: gire o celular para a horizontal para jogar em tela mais ampla sem botões sobre a imagem.</p>
+    <p class="hint">No celular, os controles ficam na parte inferior; no PC, use as setas, Z / X ou Enter.</p>
   </div>
 
   <script>
-    const ROM_URL = "./DuckTales%20(USA).nes";
+    const ROM_URL = "./Mighty%20Final%20Fight%20(USA).nes";
 
     window.EJS_player = "#game";
     window.EJS_core = "nes";
-    window.EJS_gameName = "DuckTales";
+    window.EJS_gameName = "Mighty Final Fight";
     window.EJS_gameUrl = ROM_URL;
     window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
     window.EJS_startOnLoaded = false;
